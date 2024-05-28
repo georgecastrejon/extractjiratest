@@ -6,12 +6,18 @@
 
     <groupId>org.example</groupId>
     <artifactId>ExtractJiraTest</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jira.rest.client.version>5.1.6</jira.rest.client.version>
+        <fugue.version>4.7.2</fugue.version>
+        <atlassian.httpclient.version>2.0.0</atlassian.httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <httpcore.version>4.4.13</httpcore.version>
+        <testng.version>7.0.0</testng.version>
     </properties>
 
     <repositories>
@@ -28,54 +34,79 @@
                 <checksumPolicy>warn</checksumPolicy>
             </releases>
         </repository>
-</repositories>
+    </repositories>
 
-     <dependencies>
-         <dependency>
-             <groupId>com.atlassian.jira</groupId>
-             <artifactId>jira-rest-java-client-api</artifactId>
-             <version>5.1.6</version>
-         </dependency>
-         <dependency>
-             <groupId>com.atlassian.jira</groupId>
-             <artifactId>jira-rest-java-client-core</artifactId>
-             <version>5.1.6</version>
-         </dependency>
-         <dependency>
-             <groupId>io.atlassian.fugue</groupId>
-             <artifactId>fugue</artifactId>
-             <version>4.7.2</version>
-         </dependency>
-         <dependency>
-             <groupId>com.atlassian.httpclient</groupId>
-             <artifactId>atlassian-httpclient-api</artifactId>
-             <version>2.0.0</version>
-         </dependency>
-         <dependency>
-             <groupId>org.apache.httpcomponents.client5</groupId>
-             <artifactId>httpclient5</artifactId>
-             <version>5.3.1</version>
-         </dependency>
+    <dependencies>
 
-         <dependency>
-             <groupId>org.apache.httpcomponents</groupId>
-             <artifactId>httpclient</artifactId>
-             <version>4.5.13</version>
-         </dependency>
-         <dependency>
-             <groupId>org.apache.httpcomponents</groupId>
-             <artifactId>httpcore</artifactId>
-             <version>4.4.13</version>
-         </dependency>
-         <dependency>
-             <groupId>org.slf4j</groupId>
-             <artifactId>slf4j-api</artifactId>
-             <version>1.7.30</version>
-         </dependency>
-         <dependency>
-             <groupId>org.slf4j</groupId>
-             <artifactId>slf4j-simple</artifactId>
-             <version>1.7.30</version>
-         </dependency>
-     </dependencies>
+        <!-- Dependencia para interactuar con la API REST de Jira (tanto Cloud como Server) -->
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-rest-java-client-api</artifactId>
+            <version>${jira.rest.client.version}</version>
+        </dependency>
+
+
+
+        <!-- Cliente HTTP utilizado por el cliente de Jira REST (uso implícito dentro de jira-rest-java-client-core) -->
+        <dependency>
+            <groupId>com.atlassian.httpclient</groupId>
+            <artifactId>atlassian-httpclient-api</artifactId>
+            <version>${atlassian.httpclient.version}</version>
+        </dependency>
+
+        <!-- Biblioteca funcional utilizada internamente por el cliente de Jira REST para manejar respuestas de la API (uso implícito dentro de jira-rest-java-client-core) -->
+        <dependency>
+            <groupId>io.atlassian.fugue</groupId>
+            <artifactId>fugue</artifactId>
+            <version>${fugue.version}</version>
+        </dependency>
+
+        <!-- Cliente HTTP de Apache, necesario para realizar llamadas HTTP en versiones 4.x (uso implícito dentro de jira-rest-java-client-core) -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+
+        <!-- Core de HTTP de Apache, complementario a httpclient (uso implícito dentro de jira-rest-java-client-core) -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+        </dependency>
+
+        <!-- Framework de pruebas para ejecutar tests -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Core del cliente API de Jira REST (tanto Cloud como Server) -->
+        <dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-rest-java-client-core</artifactId>
+            <version>${jira.rest.client.version}</version>
+        </dependency>
+
+        <!-- definir una interfaz Java asociada a un archivo de propiedades para manejo de env -->
+        <dependency>
+            <groupId>org.aeonbits.owner</groupId>
+            <artifactId>owner-java8</artifactId>
+            <version>1.0.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
+    </dependencies>
 </project>
